@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">NOGs</string>
+    <string name="navigation_drawer_open">Abrir menu</string>
+    <string name="navigation_drawer_close">Fechar menu</string>
+    <string name="nav_header_title">Incentivando doações</string>
+    <string name="nav_header_subtitle">Logado como visitante</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Infos</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_category">Categorias</string>
+    <string name="menu_entities">Entidades</string>
+    <string name="menu_donate">Doação</string>
+    <string name="menu_statics">Estatísticas</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar ou Registrar</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="welcome">"Bem vindo!"</string>
+    <string name="invalid_username">Nome de usuário inválido</string>
+    <string name="invalid_password">A senha deve ter > 5 caracteres</string>
+    <string name="login_failed">"Falha no login"</string>
+    <string-array name="entities_mockup">
+        <item>Entidade 1</item>
+        <item>Entidade 2</item>
+        <item>Entidade 3</item>
+        <item>Entidade 4</item>
+        <item>Entidade 5</item>
+    </string-array>
+</resources>
