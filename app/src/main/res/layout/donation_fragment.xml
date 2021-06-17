@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="24dp"
     android:orientation="vertical"
-    tools:context=".ui.donuts.DonateFragment">
+    tools:context=".ui.donation.DonationFragment">
 
     <TextView
         android:id="@+id/textView3"
@@ -13,13 +13,14 @@
         android:layout_height="wrap_content"
         android:text="Entidade" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:drawSelectorOnTop="true"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:autofillHints="Selecione"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -28,11 +29,12 @@
         android:text="Valor" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:ems="10"
+        android:hint="0.00"
         android:inputType="numberDecimal" />
 
     <TextView
@@ -42,24 +44,37 @@
         android:text="Forma de Pagamento" />
 
     <RadioGroup
+        android:id="@+id/paymentMethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dinheiro" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/credit_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cartão de Crédito" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/debit_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cartão de Débito" />
+
+        <RadioButton
+            android:id="@+id/transfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transferência" />
+
+        <RadioButton
+            android:id="@+id/pix"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="PIX" />
@@ -73,11 +88,12 @@
         android:text="Observações" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/observation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:ems="10"
+        android:hint="Digite sobre esta doação"
         android:inputType="textPersonName" />
 
     <Button

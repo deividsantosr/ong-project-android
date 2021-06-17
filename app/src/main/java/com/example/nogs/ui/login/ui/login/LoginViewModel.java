@@ -6,10 +6,16 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
+import com.example.nogs.api.RetrofitConfig;
+import com.example.nogs.api.User;
 import com.example.nogs.ui.login.data.LoginRepository;
 import com.example.nogs.ui.login.data.Result;
 import com.example.nogs.ui.login.data.model.LoggedInUser;
 import com.example.nogs.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginViewModel extends ViewModel {
 
@@ -29,16 +35,26 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
-    public void login(String username, String password) {
+    public void login(String email, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+//        Result<LoggedInUser> result = loginRepository.login(email, password);
 
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-        } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
+        Call<User> call = new RetrofitConfig().getUserFromLogin(email, password);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user = response.body();
+
+                LoggedInUser data = new LoggedInUser(user.getId(), user.getName());
+                loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                loginResult.setValue(new LoginResult(R.string.login_failed));
+            }
+        });
     }
 
     public void loginDataChanged(String username, String password) {
@@ -65,6 +81,6 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        return password != null && password.trim().length() > 0; ///TODO: Corrigir isso
     }
 }

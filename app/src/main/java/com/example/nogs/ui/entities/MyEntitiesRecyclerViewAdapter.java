@@ -27,7 +27,7 @@ public class MyEntitiesRecyclerViewAdapter extends RecyclerView.Adapter<MyEntiti
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_donate, parent, false);
+                .inflate(R.layout.fragment_donation, parent, false);
         return new ViewHolder(view);
     }
 

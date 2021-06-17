@@ -1,8 +1,10 @@
 package com.example.nogs.ui.entities;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nogs.R;
+import com.example.nogs.api.Category;
+import com.example.nogs.api.Ong;
+import com.example.nogs.api.RetrofitConfig;
+import com.example.nogs.ui.category.MyCategoryRecyclerViewAdapter;
 import com.example.nogs.ui.entities.dummy.DummyContent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -54,7 +67,7 @@ public class EntitiesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_donate_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_donation_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -65,7 +78,30 @@ public class EntitiesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyEntitiesRecyclerViewAdapter(DummyContent.ITEMS));
+
+            Call<List<Ong>> call = new RetrofitConfig().getOngs();
+
+            call.enqueue(new Callback<List<Ong>>() {
+                @Override
+                public void onResponse(Call<List<Ong>> call, Response<List<Ong>> response) {
+                    List<DummyContent.DummyItem> items = new ArrayList<>();
+
+                    int position = 0;
+
+                    for (Ong item : response.body()) {
+                        position++;
+
+                        items.add(new DummyContent.DummyItem(String.valueOf(position), item.getName(), item.getDescription()));
+                    }
+
+                    recyclerView.setAdapter(new MyEntitiesRecyclerViewAdapter(items));
+                }
+
+                @Override
+                public void onFailure(Call<List<Ong>> call, Throwable t) {
+
+                }
+            });
         }
         return view;
     }

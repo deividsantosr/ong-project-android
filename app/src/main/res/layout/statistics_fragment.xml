@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.statistics.StatisticsFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:text="Recursos captados pela plataforma"
-        android:textSize="20sp"/>
+        android:scrollbars="vertical"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/statistic_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:gravity="top|left"
+            android:text="Carregando..."
+            android:textSize="18sp" />
+    </ScrollView>
 
 </FrameLayout>

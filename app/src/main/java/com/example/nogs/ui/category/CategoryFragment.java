@@ -1,8 +1,10 @@
 package com.example.nogs.ui.category;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nogs.R;
+import com.example.nogs.api.Category;
+import com.example.nogs.api.RetrofitConfig;
+import com.example.nogs.api.User;
 import com.example.nogs.ui.category.dummy.DummyContent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static kotlinx.coroutines.flow.FlowKt.collect;
 
 /**
  * A fragment representing a list of Items.
@@ -65,7 +80,30 @@ public class CategoryFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCategoryRecyclerViewAdapter(DummyContent.ITEMS));
+
+            Call<List<Category>> call = new RetrofitConfig().getCategories();
+
+            call.enqueue(new Callback<List<Category>>() {
+                @Override
+                public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                    List<DummyContent.DummyItem> items = new ArrayList<>();
+
+                    int position = 0;
+
+                    for (Category item : response.body()) {
+                        position++;
+
+                        items.add(new DummyContent.DummyItem(String.valueOf(position), item.getName(), item.getDescription()));
+                    }
+
+                    recyclerView.setAdapter(new MyCategoryRecyclerViewAdapter(items));
+                }
+
+                @Override
+                public void onFailure(Call<List<Category>> call, Throwable t) {
+
+                }
+            });
         }
         return view;
     }

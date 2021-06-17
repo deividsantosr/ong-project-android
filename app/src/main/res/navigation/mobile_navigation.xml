@@ -39,13 +39,13 @@
         android:id="@+id/nav_entities"
         android:name="com.example.nogs.ui.entities.EntitiesFragment"
         android:label="@string/menu_entities"
-        tools:layout="@layout/fragment_donate" />
+        tools:layout="@layout/fragment_donation" />
 
     <fragment
         android:id="@+id/nav_donate"
-        android:name="com.example.nogs.ui.donuts.DonateFragment"
+        android:name="com.example.nogs.ui.donation.DonationFragment"
         android:label="@string/menu_donate"
-        tools:layout="@layout/donate_fragment" />
+        tools:layout="@layout/donation_fragment" />
 
     <fragment
         android:id="@+id/nav_statics"
